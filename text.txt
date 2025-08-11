@@ -1,0 +1,72 @@
+/* Sequentially marged porjects using github api */
+
+const GH_USER = 'MrEchoFi';
+const PROJECT_ORDER = [
+
+     'BannerGrapV2',
+        'GreeDoS_V2',
+        'EchoFi_BoX_V1-',
+        'DentoGuard',
+        'EchoFi_Pocket_Server.',
+        'EchoFi_Keylogger_Primo',
+        'EchoFi_USB_rubber_ducky',
+        'EchoFi_SpiderBot',
+        'EchoFi_Droid',
+        'EchoFi_USB_rubber_ducky',
+        'GreeDoS_V1',
+        'BannerGrapV1',
+        'EchoFi_8266Deauther',
+        'GRABBER',
+        'NetWraith',
+       
+        'Trios_terminal-',
+        'EchoFi_Kilog',
+        'EchoFi_BLE_Joystick',
+        'Echo_Snipe',
+        'EchoFi_ObstacleAvoiding_Bot',
+        'Book-Of-Operational_Scapy-BY-Tanjib-Isham',
+        'Deauth_All',
+        'Fidelity_Xploit',
+        'Lesson-of-keylogger-BY-tanjib_isham',
+        'E-commerce_site.',
+        'Concept-of-RubberDucky-using-M5-Stamp-S3',
+
+];
+const EXCLUDE = new Set([
+   'All_Projects_of_MrEchoFi_Md-Abu-Naser-Nayeem'
+]);
+
+let ALL_REPOS = []; // in-memory cache, no repeated fetches
+
+function debounce(fn, ms=250){
+  let t; return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn(...args), ms); };
+}
+
+async function fetchReposOnce() {
+  if (ALL_REPOS.length) return ALL_REPOS;
+  let page = 1;
+  let repos = [];
+  let hasMore = true;
+  const baseUrl = `https://api.github.com/users/MrEchoFi/repos?per_page=100&sort=created&direction=asc`;
+
+  try {
+    while (hasMore) {
+      const url = `/api/repos?page=${page}`;
+      const res = await fetch(url);
+      if (!res.ok) {
+        let msg = 'GitHub API error';
+        if (res.status === 403) msg = 'GitHub API rate limit exceeded. Please try again later.';
+        if (res.status === 404) msg = 'GitHub user or repos not found.';
+        throw new Error(msg);
+      }
+      const data = await res.json();
+      repos = repos.concat(data);
+      hasMore = data.length === 100;
+      page++;
+    }
+    ALL_REPOS = repos;
+    return ALL_REPOS;
+  } catch (err) {
+    throw new Error('Failed to load repositories. ' + err.message);
+  }
+}
