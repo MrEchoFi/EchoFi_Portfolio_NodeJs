@@ -1,4 +1,4 @@
-// Year
+
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // Scroll progress
@@ -38,12 +38,12 @@ document.querySelectorAll('header nav a[href^="#"]').forEach(a => {
     const target = document.getElementById(id);
     if (!target) return;
     window.scrollTo({ top: target.offsetTop - 56, behavior: 'smooth' });
-    // Close mobile menu on selection
+    
     closeMobileMenu();
   });
 });
 
-// Mobile hamburger menu
+// Mobile menu
 const header = document.getElementById('header');
 const menuBtn = document.getElementById('menu-toggle');
 function closeMobileMenu() {
@@ -55,11 +55,11 @@ menuBtn.addEventListener('click', () => {
   menuBtn.setAttribute('aria-expanded', String(isOpen));
 });
 window.addEventListener('resize', () => {
-  // Auto-close on resizing to desktop
+  
   if (window.innerWidth > 860) closeMobileMenu();
 });
 
-// Crest tilt (parallax)
+
 (function() {
   const crest = document.getElementById('crest');
   if (!crest) return;
@@ -104,13 +104,13 @@ particlesJS('particles-js', {
 });
 
 /* Sequentially marged porjects using github api */
-/* === NEW GITHUB REPOS SECTION WITH CUSTOM ORDER === */
+
 
 const API_BASE = '/api/repos';
 
 
 
-// Your custom priority order
+
 let ALL_REPOS = [];
 
 const PROJECT_ORDER = [
@@ -305,7 +305,7 @@ function applyFiltersAndRender() {
 
     if (!Array.isArray(ALL_REPOS)) {
       console.error('applyFiltersAndRender: ALL_REPOS is not an array', ALL_REPOS);
-      // Gracefully exit or render empty grid
+      
       renderProjectsGrid([]);
     } else {
       console.log('applyFiltersAndRender: repos before order', ALL_REPOS);
@@ -314,7 +314,7 @@ function applyFiltersAndRender() {
       renderProjectsGrid(Array.isArray(ordered) ? ordered : []);
     }
 
-    // Hide loading bar and reset progress
+    
     document.getElementById('projects-loading').hidden = true;
     const bar = document.getElementById('projects-progress-bar');
     if (bar) bar.style.width = '0%';
@@ -322,7 +322,7 @@ function applyFiltersAndRender() {
 
   } catch (err) {
     console.error('applyFiltersAndRender error:', err);
-    // Optional: show a friendly “no projects” state instead of the repo error banner
+    
     renderProjectsGrid([]);
   }
 }
@@ -335,13 +335,13 @@ async function initProjects() {
   loading.hidden = false;
   grid.hidden = true;
   error.hidden = true;
-  // Animate progress bar while loading
+  
   const bar = document.getElementById('projects-progress-bar');
   if (bar) {
     bar.style.width = '0%';
     let progress = 0;
     let interval = setInterval(() => {
-      progress += Math.random() * 18 + 7; // random step for effect
+      progress += Math.random() * 18 + 7; 
       if (progress > 90) progress = 90;
       bar.style.width = progress + '%';
     }, 300);
@@ -352,7 +352,6 @@ async function initProjects() {
     await loadRepos();
 
     
-    // On success, fill bar to 100% and hide after a short delay
     const bar = document.getElementById('projects-progress-bar');
     if (bar) {
       bar.style.width = '100%';
@@ -374,7 +373,7 @@ async function initProjects() {
   }
 }
 
-// Live search (no refetch)
+
 const liveSearch = (() => {
   let t; return () => {
     clearTimeout(t);

@@ -1,5 +1,5 @@
-// server.js
-// Node 18+ has global fetch. If you're on older Node, uncomment next line:
+
+
 // const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const express = require('express');
@@ -11,8 +11,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.set('trust proxy', true);
 
-// Simple in-memory cache to reduce API calls (adjust TTL as needed)
-const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+const CACHE_TTL_MS = 5 * 60 * 1000; 
 const cache = {
   ts: 0,
   data: null
@@ -33,9 +33,9 @@ async function fetchWithRetry(url, { headers = {}, retries = 3, backoffMs = 800 
       continue;
     }
 
-    // Handle unauthenticated rate limit: 403 + x-ratelimit-remaining: 0
+    
     if (res.status === 403 && res.headers.get('x-ratelimit-remaining') === '0') {
-      // If we have cached data, surface that instead of waiting
+      
       const reset = Number(res.headers.get('x-ratelimit-reset')) * 1000;
       const retryAfter = Math.max(0, reset - Date.now()) + 1000;
       const err = new Error('Rate limited');
@@ -44,7 +44,7 @@ async function fetchWithRetry(url, { headers = {}, retries = 3, backoffMs = 800 
       throw err;
     }
 
-    // Retry transient server errors
+    
     if (res.status >= 500 && res.status <= 599) {
       if (attempt === retries) throw new Error(`GitHub ${res.status}`);
       await wait(backoffMs * Math.pow(2, attempt));
@@ -79,7 +79,7 @@ async function fetchAllPublicRepos(user) {
     page++;
   }
 
-  // Ensure stable order (oldest -> newest)
+  
   all.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
   return all;
 }
@@ -87,7 +87,7 @@ async function fetchAllPublicRepos(user) {
 app.get('/api/repos', async (req, res) => {
   const user = req.query.user || 'MrEchoFi';
 
-  // Serve from cache if fresh
+ 
   const now = Date.now();
   if (cache.data && (now - cache.ts) < CACHE_TTL_MS) {
     res.set('X-Cache', 'HIT');
@@ -99,14 +99,14 @@ app.get('/api/repos', async (req, res) => {
     cache.data = data;
     cache.ts = Date.now();
 
-    // Cache headers for clients/CDN
+    
     res.set('Cache-Control', 'public, max-age=60, s-maxage=300');
     res.set('X-Cache', 'MISS');
     return res.status(200).json(data);
   } catch (err) {
     console.error('Fetch error:', err.message);
 
-    // If rate limited or transient errors and we have cache, serve stale
+    
     if (cache.data) {
       res.set('X-Cache', 'STALE');
       if (err.code === 'RATE_LIMITED' && err.retryAfter) {
@@ -115,7 +115,7 @@ app.get('/api/repos', async (req, res) => {
       return res.status(200).json(cache.data);
     }
 
-    // Otherwise, bubble up a friendly error
+    
     if (err.code === 'RATE_LIMITED' && err.retryAfter) {
       res.set('Retry-After', Math.ceil(err.retryAfter / 1000));
       return res.status(429).json({ error: 'Rate limited. Please try again shortly.' });
