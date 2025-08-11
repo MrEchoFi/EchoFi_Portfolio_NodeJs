@@ -108,7 +108,11 @@ particlesJS('particles-js', {
 
 const API_BASE = '/api/repos';
 
+
+
 // Your custom priority order
+let ALL_REPOS = [];
+
 const PROJECT_ORDER = [
   'BannerGrapV2', 'GreeDoS_V2', 'EchoFi_BoX_V1-', 'DentoGuard', 'EchoFi_Pocket_Server.',
   'EchoFi_Keylogger_Primo', 'EchoFi_USB_rubber_ducky', 'EchoFi_SpiderBot', 'EchoFi_Droid',
@@ -127,7 +131,7 @@ const loadingEl = document.getElementById('projects-loading');
 const errorEl = document.getElementById('projects-error');
 const gridEl = document.getElementById('projects-grid');
 
-function orderRepos(repos) {
+/*function orderRepos(repos) {
   const filtered = repos.filter(r => !r.private && !r.fork && !EXCLUDE.has(r.name));
   // Oldest → newest
   filtered.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
@@ -139,9 +143,9 @@ function orderRepos(repos) {
   const rest = Array.from(map.values());
 
   return [...prioritized, ...rest];
-}
+}*/
 
-function renderProjects(repos) {
+/*function renderProjects(repos) {
   const list = orderRepos(repos);
  function createCard(repo) {
   const desc = repo.description || "No description provided";
@@ -173,7 +177,7 @@ function renderProjects(repos) {
 // When you render:
 gridEl.innerHTML = list.map(createCard).join('');
 
-}
+}*/
 
 async function loadRepos() {
   loadingEl.hidden = false;
@@ -183,7 +187,8 @@ async function loadRepos() {
   try {
     const res = await fetch(`${API_BASE}?user=MrEchoFi`, { cache: 'no-store' });
     if (!res.ok) throw new Error(`API ${res.status}`);
-    const repos = await res.json();
+    ALL_REPOS = Array.isArray(repos) ? repos : [repos];
+
     renderProjects(repos);
     gridEl.hidden = false;
   } catch (e) {
@@ -194,7 +199,7 @@ async function loadRepos() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', loadRepos);
+//document.addEventListener('DOMContentLoaded', loadRepos);
 
 function orderRepos(repos, includeArchived=false) {
   let filtered = repos.filter(r =>
