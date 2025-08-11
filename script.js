@@ -143,18 +143,36 @@ function orderRepos(repos) {
 
 function renderProjects(repos) {
   const list = orderRepos(repos);
-  gridEl.innerHTML = list.map(r => {
-    const desc = r.description || '';
-    const lang = r.language || '—';
-    const stars = typeof r.stargazers_count === 'number' ? r.stargazers_count : 0;
-    return `
-      <article class="repo">
-        <h3><a href="${r.html_url}" target="_blank" rel="noopener">${r.name}</a></h3>
-        <p>${desc}</p>
-        <small>⭐ ${stars} • ${lang}</small>
-      </article>
-    `;
-  }).join('');
+ function createCard(repo) {
+  const desc = repo.description || "No description provided";
+  const lang = repo.language || "Unknown";
+  const dateStr = new Date(repo.updated_at).toLocaleDateString();
+  const demoLink = repo.homepage
+    ? `<a class="badge" href="${repo.homepage}" target="_blank" rel="noopener">🔗 Demo</a>`
+    : "";
+
+  return `
+    <a class="project reveal" href="${repo.html_url}" target="_blank" rel="noopener">
+      <div class="thumb">
+        <svg class="hex" viewBox="0 0 100 100">
+          <polygon points="50,1 95,25 95,75 50,99 5,75 5,25"></polygon>
+        </svg>
+      </div>
+      <h3>${repo.name}</h3>
+      <p>${desc}</p>
+      <div class="meta">
+        <span class="badge">${lang}</span>
+        <span class="badge">⭐ ${repo.stargazers_count}</span>
+        <span class="badge">${dateStr}</span>
+        ${demoLink}
+      </div>
+    </a>
+  `;
+}
+
+// When you render:
+gridEl.innerHTML = list.map(createCard).join('');
+
 }
 
 async function loadRepos() {
