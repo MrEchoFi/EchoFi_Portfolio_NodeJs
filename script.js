@@ -119,8 +119,8 @@ const PROJECT_ORDER = [
   'EchoFi_USB_rubber_ducky', 'GreeDoS_V1', 'BannerGrapV1', 'EchoFi_8266Deauther', 'GRABBER',
   'NetWraith', 'Trios_terminal-', 'EchoFi_Kilog', 'EchoFi_BLE_Joystick', 'Echo_Snipe',
   'EchoFi_ObstacleAvoiding_Bot', 'Book-Of-Operational_Scapy-BY-Tanjib-Isham', 'Deauth_All',
-  'Fidelity_Xploit', 'Lesson-of-keylogger-BY-tanjib_isham', 'E-commerce_site.',
-  'Concept-of-RubberDucky-using-M5-Stamp-S3'
+  'Fidelity_Xploit', 'Lesson-of-keylogger-BY-tanjib_isham','EchoFi_Portfolio_NodeJs', 'E-commerce_site.',
+  'Concept-of-RubberDucky-using-M5-Stamp-S3','All_Projects_of_MrEchoFi_Md-Abu-Naser-Nayeem'
 ];
 
 const EXCLUDE = new Set([
