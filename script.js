@@ -186,14 +186,21 @@ async function loadRepos() {
 
   try {
     const res = await fetch(`${API_BASE}?user=MrEchoFi`, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`API ${res.status}`);
-    ALL_REPOS = Array.isArray(repos) ? repos : [repos];
+    console.log('Status:', res.status);
 
-    renderProjects(repos);
+    if (!res.ok) throw new Error(`API ${res.status}`);
+
+    const repos = await res.json();
+    console.log('Data received:', repos, 'Is array?', Array.isArray(repos));
+
+    ALL_REPOS = Array.isArray(repos) ? repos : [];
+    renderProjects(ALL_REPOS);
     gridEl.hidden = false;
+
   } catch (e) {
-    console.error(e);
+    console.error('loadRepos error:', e);
     errorEl.hidden = false;
+
   } finally {
     loadingEl.hidden = true;
   }
@@ -293,15 +300,33 @@ function renderProjectsGrid(repos) {
   grid.querySelectorAll('.project').forEach(el => io.observe(el));
 }
 function applyFiltersAndRender() {
-  const showArchived = document.getElementById('show-archived').checked;
-  const ordered = orderRepos(ALL_REPOS, showArchived);
-  renderProjectsGrid(ordered);
-  // Hide loading bar and reset progress
-  document.getElementById('projects-loading').hidden = true;
-  const bar = document.getElementById('projects-progress-bar');
-  if (bar) bar.style.width = '0%';
-  document.getElementById('projects-grid').hidden = false;
+  try {
+    const showArchived = document.getElementById('show-archived')?.checked ?? false;
+
+    if (!Array.isArray(ALL_REPOS)) {
+      console.error('applyFiltersAndRender: ALL_REPOS is not an array', ALL_REPOS);
+      // Gracefully exit or render empty grid
+      renderProjectsGrid([]);
+    } else {
+      console.log('applyFiltersAndRender: repos before order', ALL_REPOS);
+      const ordered = orderRepos(ALL_REPOS, showArchived);
+      console.log('applyFiltersAndRender: repos after order', ordered);
+      renderProjectsGrid(Array.isArray(ordered) ? ordered : []);
+    }
+
+    // Hide loading bar and reset progress
+    document.getElementById('projects-loading').hidden = true;
+    const bar = document.getElementById('projects-progress-bar');
+    if (bar) bar.style.width = '0%';
+    document.getElementById('projects-grid').hidden = false;
+
+  } catch (err) {
+    console.error('applyFiltersAndRender error:', err);
+    // Optional: show a friendly “no projects” state instead of the repo error banner
+    renderProjectsGrid([]);
+  }
 }
+
 async function initProjects() {
   const loading = document.getElementById('projects-loading');
   const grid = document.getElementById('projects-grid');
@@ -326,6 +351,7 @@ async function initProjects() {
   try {
     await loadRepos();
 
+    
     // On success, fill bar to 100% and hide after a short delay
     const bar = document.getElementById('projects-progress-bar');
     if (bar) {
