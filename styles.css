@@ -1,5 +1,20 @@
 
+/* Default styles for mobile */
+.container {
+    width: 100%;
+    padding: 1rem;
+}
 
+/* Styles for screens wider than 768px (tablets and desktops) */
+@media (min-width: 768px) {
+    .container {
+        width: 768px; /* Or a max-width, e.g., max-width: 1200px; */
+        padding: 2rem;
+    }
+    .hero-section {
+        flex-direction: row; /* Change flex direction from column to row */
+    }
+}
 /* Mobile Response 
 @media screen and (max-width: 768px) {
   body {
