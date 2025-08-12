@@ -43,6 +43,8 @@ document.querySelectorAll('header nav a[href^="#"]').forEach(a => {
   });
 });
 
+
+
 // Mobile menu
 const header = document.getElementById('header');
 const menuBtn = document.getElementById('menu-toggle');
