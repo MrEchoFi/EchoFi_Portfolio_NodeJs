@@ -1,6 +1,6 @@
 
 
-/* Mobile Response */
+/* Mobile Response 
 @media screen and (max-width: 768px) {
   body {
     padding: 1rem;
@@ -78,7 +78,7 @@
     margin: 0 auto;
     display: block;
   }
-}
+} */
 
 
 @media (max-width: 800px) {
