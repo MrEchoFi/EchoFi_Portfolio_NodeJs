@@ -1,0 +1,137 @@
+/* mobile-fix.css */
+/* 1) Universal safety nets */
+*,
+*::before,
+*::after { box-sizing: border-box; min-width: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; width: 100%; max-width: 100vw; overflow-x: hidden; }
+
+/* Images/icons never overflow */
+img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
+
+/* Common containers center and pad on small screens */
+header, main, footer, section, nav, .container {
+  width: 100%;
+  max-width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 2) Default mobile layout: single column, centered */
+@media (max-width: 768px) {
+  /* Typography and spacing scale down a bit */
+  :root { --gap-sm: 8px; --gap-md: 12px; --gap-lg: 16px; }
+
+  /* Prevent left hugging */
+  .intro, .bio, .hero, .about, .profile, .content, .section {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
+  /* Logo / crest */
+  .logo, #logo, #crest, .site-logo {
+    display: block !important;
+    margin: 0 auto !important;
+    max-width: 140px !important;
+  }
+
+  /* Navigation: stacked and centered */
+  header nav, nav[role="navigation"], .navbar {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: var(--gap-md) !important;
+    width: 100% !important;
+  }
+  nav ul, .nav-list, .menu {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: var(--gap-sm) !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+    width: 100% !important;
+  }
+  nav li, .nav-item { flex: 0 1 auto !important; }
+
+  /* Social buttons never overlap */
+  .social, .socials, .social-buttons, .contacts {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: var(--gap-sm) !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin-top: var(--gap-md) !important;
+  }
+  .social a, .socials a, .social-buttons a, .contacts a,
+  .social button, .contacts button {
+    flex: 1 1 46% !important;  /* two per row */
+    text-align: center !important;
+    padding: 10px !important;
+    min-width: 140px !important;
+  }
+
+  /* Photo/avatar */
+  .photo, .avatar, .profile-pic { margin: var(--gap-lg) auto !important; }
+  .photo img, .avatar img, .profile-pic img {
+    width: 100% !important;
+    max-width: 220px !important;
+    border-radius: 50% !important;
+    margin: 0 auto !important;
+  }
+
+  /* Projects: single column */
+  #projects, .projects, .project-grid, [class*="projects"] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: var(--gap-lg) !important;
+    width: 100% !important;
+  }
+  .project, .card, .project-card {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Background art stays centered and contained */
+  .hero, .banner, .masthead, .cover {
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  }
+
+  /* Kill absolute layouts that cause overlap on mobile */
+  [style*="position:absolute"], .absolute {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+  }
+
+  /* Buttons and links wrap properly */
+  a, button {
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  /* Prevent giant fixed widths */
+  [style*="width:"], .w-fixed, .fixed-width {
+    max-width: 100% !important;
+  }
+
+  /* Typography scaling for small screens */
+  h1 { font-size: clamp(22px, 6vw, 32px) !important; }
+  h2 { font-size: clamp(18px, 5vw, 26px) !important; }
+  p, li, a, button, input { font-size: clamp(14px, 3.8vw, 18px) !important; }
+
+  /* Gaps */
+  .row, .flex, [class*="row"], [class*="flex"] {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: var(--gap-md) !important;
+  }
+}
+
+/* 3) Desktop can still use your original multi-column; this file only forces safe mobile */
