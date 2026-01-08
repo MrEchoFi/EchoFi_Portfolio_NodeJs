@@ -3,5 +3,11 @@
   <h1>EchoFi_Portfolio_NodeJs</h1>
    
   <p>
-    https://echo-fi-portfolio-node-js.vercel.app/
+    LIVE: https://echo-fi-portfolio-node-js.vercel.app/
   </p>
+
+# Video:
+    
+
+https://github.com/user-attachments/assets/e17d2f31-465e-47a3-b59b-5c30bf361fe8
+
