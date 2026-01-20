@@ -116,7 +116,7 @@ const API_BASE = '/api/repos';
 let ALL_REPOS = [];
 
 const PROJECT_ORDER = [
-  'BannerGrapV2', 'EchoFi_BoX_V1-', 'GreeDoS_V2', 'DentoGuard', 'EchoFi_Pocket_Server.',
+  'BannerGrapV2', 'EchoFi_BoX_V1-', 'GreeDoS_V2', 'Web-Development-Project', 'DentoGuard', 'EchoFi_Pocket_Server.',
   'EchoFi_Keylogger_Primo', 'EchoFi_USB_rubber_ducky', 'EchoFi_SpiderBot', 'EchoFi_Droid',
   'EchoFi_USB_rubber_ducky','Phish_Mail', 'GreeDoS_V1', 'BannerGrapV1', 'EchoFi_8266Deauther','LFR_BOT_-_Obstacle_Avoiding_with_Esp32CAM_Surveillance-', 'GRABBER',
   'NetWraith', 'Trios_terminal-', 'EchoFi_Kilog', 'EchoFi_BLE_Joystick', 'Echo_Snipe',
