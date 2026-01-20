@@ -118,7 +118,7 @@ let ALL_REPOS = [];
 const PROJECT_ORDER = [
   'BannerGrapV2', 'EchoFi_BoX_V1-', 'GreeDoS_V2', 'Web-Development-Project', 'DentoGuard', 'EchoFi_Pocket_Server.',
   'EchoFi_Keylogger_Primo', 'EchoFi_USB_rubber_ducky', 'EchoFi_SpiderBot', 'EchoFi_Droid',
-  'EchoFi_USB_rubber_ducky','Phish_Mail', 'GreeDoS_V1', 'BannerGrapV1', 'EchoFi_8266Deauther','LFR_BOT_-_Obstacle_Avoiding_with_Esp32CAM_Surveillance-', 'GRABBER',
+  'EchoFi_USB_rubber_ducky','Phish_Mail', 'Nike_Frontend-', 'GreeDoS_V1', 'BannerGrapV1', 'EchoFi_8266Deauther','LFR_BOT_-_Obstacle_Avoiding_with_Esp32CAM_Surveillance-', 'GRABBER',
   'NetWraith', 'Trios_terminal-', 'EchoFi_Kilog', 'EchoFi_BLE_Joystick', 'Echo_Snipe',
   'EchoFi_ObstacleAvoiding_Bot','HMS_By-Tanjib_MrEchoFi','EchoFi_Portfolio_NodeJs','Bcrypt_lib-based-defensive-brute-force-attacks-and-credential-stuffing-signup-login-page-','Book-Of-Operational_Scapy-BY-Tanjib-Isham', 'Deauth_All',
   'Fidelity_Xploit', 'Lesson-of-keylogger-BY-tanjib_isham','E-commerce_site.',
