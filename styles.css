@@ -420,6 +420,34 @@ body {
 }
 .projects-error { color: #ffb4b4; margin-top: 10px; }
 
+/* Certifications */
+.cert-intro { color: var(--muted); max-width: 760px; margin: 0 0 22px 0; }
+.certs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cert {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid var(--border); border-radius: 18px; padding: 18px;
+  text-decoration: none; color: var(--text); position: relative; overflow: hidden;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: transform .15s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.cert:hover { border-color: rgba(255,255,255,0.2); box-shadow: var(--glow); transform: translateY(-2px); }
+.cert-icon {
+  width: 54px; height: 54px; display: grid; place-items: center; font-size: 26px;
+  border-radius: 14px; border: 1px solid var(--border); margin-bottom: 6px;
+  background: linear-gradient(135deg, rgba(103,232,249,0.14), rgba(167,139,250,0.12));
+  box-shadow: var(--glow);
+}
+.cert-thumb {
+  width: 100%; aspect-ratio: 7 / 5; object-fit: cover; display: block;
+  border-radius: 12px; border: 1px solid var(--border); margin-bottom: 10px;
+  background: rgba(255,255,255,0.02);
+  transition: transform .25s ease, box-shadow .2s ease;
+}
+.cert:hover .cert-thumb { box-shadow: var(--glow); }
+.cert h3 { margin: 0; font-size: 1.05rem; }
+.cert-issuer { color: var(--muted); margin: 0; font-size: .92rem; }
+.cert .meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: auto; padding-top: 6px; color: var(--muted); font-size: 12px; }
+
 /* Footer */
 .footer { padding: 30px 20px; text-align: center; color: var(--muted); border-top: 1px solid var(--border); background: var(--bg-2); }
 
@@ -455,10 +483,10 @@ body {
 @media (max-width: 1000px) {
   .story { grid-template-columns: 1fr; }
   .skills { grid-template-columns: 1fr 1fr; }
-  .projects, .projects-loading { grid-template-columns: 1fr 1fr; }
+  .projects, .projects-loading, .certs { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
-  .skills, .projects, .projects-loading { grid-template-columns: 1fr; }
+  .skills, .projects, .projects-loading, .certs { grid-template-columns: 1fr; }
 }
 
 
